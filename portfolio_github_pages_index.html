@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrew Tomfohrde | Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121933;
+      --card: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.12);
+      --text: #f3f5ff;
+      --muted: #b3bdd6;
+      --accent: #7aa2ff;
+      --accent-2: #8ef0d0;
+      --shadow: 0 20px 50px rgba(0,0,0,0.28);
+      --max-width: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(122,162,255,0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(142,240,208,0.12), transparent 24%),
+        linear-gradient(180deg, #09101f 0%, #0d1326 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(100% - 2rem, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(9, 16, 31, 0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      gap: 1rem;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 5.5rem 0 3.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    h1, h2, h3 { line-height: 1.15; margin: 0; }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.6rem);
+      margin-bottom: 1rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 62ch;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.15rem;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), #90b2ff);
+      color: #09101f;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+
+    .hero-card,
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 1.4rem;
+    }
+
+    .hero-card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat {
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat-number {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    section {
+      padding: 2rem 0 1rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .section-header p {
+      margin: 0.5rem 0 0;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      padding: 0.5rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .card {
+      padding: 1.3rem;
+    }
+
+    .card p {
+      margin: 0.75rem 0 0;
+      color: var(--muted);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .project-card {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      min-height: 100%;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .project-top h3 { font-size: 1.15rem; }
+
+    .pill {
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      color: #06101a;
+      background: linear-gradient(90deg, var(--accent-2), #b7ffe9);
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .project-card p {
+      margin: 0;
+      color: var(--muted);
+      flex-grow: 1;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-top: 0.2rem;
+    }
+
+    .project-links a {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .timeline-date {
+      color: var(--accent-2);
+      font-weight: 700;
+      padding-top: 0.1rem;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 2rem;
+      margin: 2rem 0 4rem;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      max-width: 55ch;
+      margin: 0.8rem auto 1.3rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      padding: 1.2rem 0 2.2rem;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">Andrew Tomfohrde</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Computer Science • MIS • Student Builder</div>
+        <h1>Building <span class="gradient-text">technical projects</span> that connect software, data, and real-world impact.</h1>
+        <p class="lead">
+          I’m Andrew, a University of Minnesota student building projects across software engineering,
+          machine learning, networking, AI, and business technology. This site highlights the school projects,
+          research, and hands-on work I’ve been developing.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">C/C++</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Web Development</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-secondary" href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-secondary" href="mailto:youremail@example.com">Email Me</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h3>Quick Snapshot</h3>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Academic and technical projects</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Focus areas: software, AI, business tech</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">UMN</div>
+            <div class="stat-label">Computer Science and MIS student</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">2026</div>
+            <div class="stat-label">Actively building portfolio-ready work</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>About Me</h2>
+            <p>
+              I enjoy building projects that combine technical depth with practical outcomes. My work has included
+              AI research, systems and networking assignments, software development, and business-focused digital tools.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="card">
+            <h3>What I Work On</h3>
+            <p>
+              My projects span machine learning, networking, algorithms, databases, and full-stack ideas. I like working on
+              assignments where I can translate class concepts into something visible, testable, and useful.
+            </p>
+          </div>
+          <div class="card">
+            <h3>What I’m Looking For</h3>
+            <p>
+              I’m interested in internships and early-career roles involving software engineering, technical support,
+              data, systems, or technology consulting where I can keep learning and contribute to real teams.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>Featured Projects</h2>
+            <p>
+              Replace these cards with your real school projects. Keep the title, short summary, tools used, and links to GitHub or demos.
+            </p>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <article class="card project-card">
+            <div class="project-top">
+              <h3>Scrabble AI</h3>
+              <span class="pill">AI</span>
+            </div>
+            <p>
+              Built an AI-driven Scrabble project exploring strategies such as Monte Carlo Tree Search, Beam Search,
+              A*, and Greedy Best-First Search to choose high-value moves from board state and rack letters.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">Algorithms</span>
+              <span class="tag">Search</span>
+            </div>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Write-up</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-top">
+              <h3>DNS Query Server</h3>
+              <span class="pill">Networking</span>
+            </div>
+            <p>
+              Implemented a multi-threaded DNS server in Python with caching and request handling over TCP,
+              focusing on reliable networking behavior, concurrency, and efficient lookup flow.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">Sockets</span>
+              <span class="tag">Caching</span>
+            </div>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Report</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-top">
+              <h3>Arctic Water Segmentation</h3>
+              <span class="pill">ML Research</span>
+            </div>
+            <p>
+              Worked on image segmentation for Arctic lake boundary detection using deep learning models,
+              improving model performance through preprocessing, experimentation, and evaluation.
+            </p>
+            <div class="tag-list">
+              <span class="tag">PyTorch</span>
+              <span class="tag">U-Net</span>
+              <span class="tag">Computer Vision</span>
+            </div>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Summary</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-top">
+              <h3>Reliable Data Transfer Protocols</h3>
+              <span class="pill">Networks</span>
+            </div>
+            <p>
+              Implemented Stop-and-Wait and Go-Back-N protocols in Python to simulate packet loss,
+              corruption, retransmissions, buffering, and sender/receiver coordination.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">Go-Back-N</span>
+              <span class="tag">Simulation</span>
+            </div>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Results</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-top">
+              <h3>Graph Search Visualizer</h3>
+              <span class="pill">Software</span>
+            </div>
+            <p>
+              Created a web-based graph search visualizer supporting BFS, DFS, Dijkstra, A*, and MST,
+              helping compare algorithm behavior on interactive graph data.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Flask</span>
+              <span class="tag">Python</span>
+              <span class="tag">Algorithms</span>
+            </div>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Demo</a>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-top">
+              <h3>Order Entry Database</h3>
+              <span class="pill">Data</span>
+            </div>
+            <p>
+              Designed and populated a relational database in MySQL with customers, orders, order details,
+              employees, and product relationships using keys, constraints, and structured queries.
+            </p>
+            <div class="tag-list">
+              <span class="tag">MySQL</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Database Design</span>
+            </div>
+            <div class="project-links">
+              <a href="#">GitHub</a>
+              <a href="#">Schema</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>Experience & Growth</h2>
+            <p>
+              This section works well for internships, research, campus roles, and technical involvement.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="card timeline-item">
+            <div class="timeline-date">Research / School</div>
+            <div>
+              <h3>AI for Earth Research</h3>
+              <p>
+                Contributed to machine learning work focused on environmental imagery and segmentation,
+                combining experimentation, evaluation, and applied AI workflows.
+              </p>
+            </div>
+          </div>
+
+          <div class="card timeline-item">
+            <div class="timeline-date">Industry</div>
+            <div>
+              <h3>PC Support / Technical Experience</h3>
+              <p>
+                Built hands-on experience supporting systems, troubleshooting issues, and working with technical tools
+                in a professional environment.
+              </p>
+            </div>
+          </div>
+
+          <div class="card timeline-item">
+            <div class="timeline-date">Campus Involvement</div>
+            <div>
+              <h3>Student Organizations</h3>
+              <p>
+                Participated in technical and community-focused student groups, building collaboration and project experience
+                outside the classroom.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="card contact-card">
+          <h2>Let’s Connect</h2>
+          <p>
+            I’m always open to connecting about internships, technical opportunities, school projects, and collaborative work.
+          </p>
+          <div class="cta-row" style="justify-content:center;">
+            <a class="btn btn-primary" href="mailto:youremail@example.com">Email</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="btn btn-secondary" href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Andrew Tomfohrde. Built for GitHub Pages.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
